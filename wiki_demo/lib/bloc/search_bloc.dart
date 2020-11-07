@@ -20,7 +20,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     if (event is SearchRequest) {
       yield SearchLoading();
       try {
-        print(event.query);
         final SearchModel searchModel =
         await searchApiClient.getSearchResult(event.query);
         yield SearchLoaded(searchModel: searchModel);

@@ -22,9 +22,13 @@ class MyHomePage extends StatelessWidget {
                 } else if (state is SearchLoaded) {
                   return resultWidget(state.searchModel);
                 } else if (state is SearchError) {
-                  return Center(child: Text('Sorry no result found',style:
-                  TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,));
+                  return Center(
+                      child: Text(
+                    'Sorry no result found',
+                    style:
+                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ));
                 } else {
                   return Container();
                 }
@@ -50,28 +54,41 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: InkWell(child: Center(
-                child:Container(child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Text(
-                        searchModel.query.pages[index].title,
-                        style:
-                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.left,
+              child: InkWell(
+                child: Center(
+                  child: Container(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+
+                        mainAxisAlignment: MainAxisAlignment.start,
+
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text(
+                              searchModel.query.pages[index].title,
+                              style: TextStyle(
+                                  fontSize: 16.0, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Text(
+                            searchModel
+                                .query.pages[index].terms.description.first,
+                            style: TextStyle(
+                                fontSize: 14.0, fontWeight: FontWeight.normal),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     ),
-                    Text(
-                      searchModel.query.pages[index].terms.description.first,
-                      style:
-                      TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal),
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
-                ),),
-              ),
-                onTap:() {print(index);} ,
+                  ),
+                ),
+                onTap: () {
+                  print(index);
+                },
               ),
             )
           ],
@@ -84,14 +101,18 @@ class MyHomePage extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(8.0),
       child: TextField(
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: 'Please enter search text here',
-        ),
-        onChanged: (query) => BlocProvider.of<SearchBloc>(context).add(
-          SearchRequest(query: query),
-        ),
-      ),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: 'Please enter search text here',
+          ),
+          onChanged: (query) {
+            if (query.length > 2) {
+              print(query);
+              BlocProvider.of<SearchBloc>(context).add(
+                SearchRequest(query: query),
+              );
+            }
+          }),
     );
   }
 }
