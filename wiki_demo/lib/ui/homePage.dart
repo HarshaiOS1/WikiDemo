@@ -43,55 +43,67 @@ class MyHomePage extends StatelessWidget {
   Widget resultWidget(SearchModel searchModel) {
     return ListView.builder(
       itemCount: searchModel.query.pages.length,
-      itemBuilder: (context, index) => Card(
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                '${index + 1}.',
-                style: TextStyle(fontSize: 20.0),
+      itemBuilder: (context, index) => SizedBox(
+        child: Card(
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text('${index + 1}.',
+                    style:
+                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
               ),
-            ),
-            Expanded(
-              child: InkWell(
-                child: Center(
-                  child: Container(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Column(
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-
-                        mainAxisAlignment: MainAxisAlignment.start,
-
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              searchModel.query.pages[index].title,
+              Expanded(
+                child: InkWell(
+                  child: Center(
+                    child: Container(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                searchModel.query.pages[index].title,
+                                style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Text(
+                              searchModel
+                                  .query.pages[index].terms.description.first,
                               style: TextStyle(
-                                  fontSize: 16.0, fontWeight: FontWeight.bold),
+                                  fontSize: 13.0,
+                                  fontWeight: FontWeight.normal),
                               textAlign: TextAlign.center,
                             ),
-                          ),
-                          Text(
-                            searchModel
-                                .query.pages[index].terms.description.first,
-                            style: TextStyle(
-                                fontSize: 14.0, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
+                  onTap: () {
+                    print(index);
+                  },
                 ),
-                onTap: () {
-                  print(index);
-                },
               ),
-            )
-          ],
+              Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Container(
+                    height: 50.0,
+                    child: (searchModel.query.pages[index].thumbnail != null)
+                        ? Image.network(
+                            searchModel.query.pages[index].thumbnail.source)
+                        : Icon(
+                            Icons.image,
+                            size: 40.0,
+                          ),
+                  )),
+            ],
+          ),
         ),
       ),
     );
