@@ -12,3 +12,10 @@ class SearchRequest extends SearchEvent {
   @override
   List<Object> get props => [query];
 }
+
+class CacheLoadRequest extends SearchEvent {
+  const CacheLoadRequest();
+  
+  @override
+  List<Object> get props => [];
+}

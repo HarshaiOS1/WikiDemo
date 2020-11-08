@@ -11,6 +11,8 @@ class SearchInitial extends SearchState {}
 
 class SearchLoading extends SearchState {}
 
+class NoInternetConnection extends SearchState {}
+
 class SearchLoaded extends SearchState {
   final SearchModel searchModel;
 

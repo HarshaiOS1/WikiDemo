@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wiki_demo/bloc/search_bloc.dart';
 import 'package:wiki_demo/models/searchModel.dart';
+import 'package:wiki_demo/network/searchApiClient.dart';
+import 'package:wiki_demo/ui/searchDetailPage.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  createState() => _MyHomePage();
+}
+
+class _MyHomePage extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +36,21 @@ class MyHomePage extends StatelessWidget {
                         TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ));
+                } else if (state is NoInternetConnection) {
+                  return Container(
+                    child: Column(
+                      children: <Widget>[
+                        Text("No Internet Connection"),
+                        RaisedButton(
+                          child: Text("Load History",
+                              style: TextStyle(color: Colors.black)),
+                          onPressed: () {
+                            // Load list from cache
+                          },
+                        )
+                      ],
+                    ),
+                  );
                 } else {
                   return Container();
                 }
@@ -86,7 +108,8 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    print(index);
+                    loadWebContent(
+                        context, searchModel.query.pages[index].pageid ?? 000);
                   },
                 ),
               ),
@@ -105,6 +128,26 @@ class MyHomePage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  loadWebContent(BuildContext context, int pageId) async {
+    print(SearchApiClient.wikiWebURL + pageId.toString());
+    var isConnected = await WikiConnectivity().hasConnectivity();
+    if (isConnected) {
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => SearchDetailPage(pageId)));
+    } else {
+      showWikiSnackbar(context);
+    }
+  }
+
+  showWikiSnackbar(BuildContext context) {
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        content: Text("No Internet Connection..!"),
+        backgroundColor: Colors.red[500],
       ),
     );
   }

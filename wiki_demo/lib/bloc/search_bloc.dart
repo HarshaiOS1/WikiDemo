@@ -20,12 +20,19 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     if (event is SearchRequest) {
       yield SearchLoading();
       try {
-        final SearchModel searchModel =
-        await searchApiClient.getSearchResult(event.query);
-        yield SearchLoaded(searchModel: searchModel);
+        var isConnected = await WikiConnectivity().hasConnectivity();
+        if (!isConnected) {
+          yield NoInternetConnection();
+        } else {
+          final SearchModel searchModel =
+          await searchApiClient.getSearchResult(event.query);
+          yield SearchLoaded(searchModel: searchModel);
+        }
       } catch (_) {
         yield SearchError();
       }
+    } else if (event is CacheLoadRequest) {
+
     }
   }
 }
