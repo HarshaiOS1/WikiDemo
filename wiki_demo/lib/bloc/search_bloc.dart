@@ -4,7 +4,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:wiki_demo/models/searchModel.dart';
 import 'package:wiki_demo/network/searchApiClient.dart';
-
 part 'search_event.dart';
 part 'search_state.dart';
 

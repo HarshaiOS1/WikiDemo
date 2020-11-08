@@ -46,6 +46,7 @@ class _MyHomePage extends State<MyHomePage> {
                               style: TextStyle(color: Colors.black)),
                           onPressed: () {
                             // Load list from cache
+                            BlocProvider.of<SearchBloc>(context).add(CacheLoadRequest());
                           },
                         )
                       ],

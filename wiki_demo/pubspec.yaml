@@ -33,6 +33,7 @@ dependencies:
   equatable: ^1.0.0
   webview_flutter:
   connectivity: ^2.0.1
+  localstorage: ^3.0.1+4
 
 dev_dependencies:
   flutter_test:
