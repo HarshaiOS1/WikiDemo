@@ -49,13 +49,6 @@ class _MyHomePage extends State<MyHomePage> {
                                 .add(CacheLoadRequest());
                           },
                         ),
-                        RaisedButton(
-                          child: Text("Continue Previous Reading",
-                    style: TextStyle(color: Colors.black)),
-                          onPressed: () {
-                            // Navigate with cache HTML
-                          },
-                        )
                       ],
                     ),
                   );
@@ -155,10 +148,6 @@ class _MyHomePage extends State<MyHomePage> {
     Scaffold.of(context).showSnackBar(
       SnackBar(
         content: Text("No Internet Connection..!"),
-        action:
-            SnackBarAction(label: "Continue Previous Reading", onPressed: () {
-              //Load from Cache
-            }),
         backgroundColor: Colors.red[500],
       ),
     );

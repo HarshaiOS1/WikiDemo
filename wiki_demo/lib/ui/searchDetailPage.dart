@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:wiki_demo/models/cacheFileManager.dart';
 import 'package:wiki_demo/network/searchApiClient.dart';
 
 class SearchDetailPage extends StatefulWidget {
@@ -36,7 +35,6 @@ class _SearchDetailPage extends State<SearchDetailPage> {
             javascriptMode: JavascriptMode.unrestricted,
             onPageFinished: (String url) {
               setState(() {
-                writeToCache(SearchApiClient.wikiWebURL + pageId.toString());
                 _stackToView = 0;
               });
             },
@@ -45,10 +43,6 @@ class _SearchDetailPage extends State<SearchDetailPage> {
         ],
       ),
     );
-  }
-
-  writeToCache(String url) {
-    CacheFileManger().saveWebpageToCache(url);
   }
 }
 
