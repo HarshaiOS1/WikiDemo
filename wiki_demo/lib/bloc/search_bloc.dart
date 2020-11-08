@@ -31,7 +31,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         yield SearchError();
       }
     } else if (event is CacheLoadRequest) {
-
+        yield SearchLoading();
+        try {
+          final SearchModel searchModel = await searchApiClient.getModelFromCache();
+          yield SearchLoaded(searchModel: searchModel);
+        } catch(_) {
+          yield SearchError();
+        }
     }
   }
 }
