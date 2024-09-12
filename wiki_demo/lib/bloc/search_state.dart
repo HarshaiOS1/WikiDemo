@@ -16,7 +16,7 @@ class NoInternetConnection extends SearchState {}
 class SearchLoaded extends SearchState {
   final SearchModel searchModel;
 
-  const SearchLoaded({@required this.searchModel})
+  const SearchLoaded({required this.searchModel})
       : assert(searchModel != null);
 
   @override

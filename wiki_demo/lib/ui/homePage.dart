@@ -6,6 +6,8 @@ import 'package:wiki_demo/network/searchApiClient.dart';
 import 'package:wiki_demo/ui/searchDetailPage.dart';
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   createState() => _MyHomePage();
 }
@@ -15,7 +17,7 @@ class _MyHomePage extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Wiki Search'),
+        title: const Text('Wiki Search'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -25,11 +27,11 @@ class _MyHomePage extends State<MyHomePage> {
             child: BlocBuilder<SearchBloc, SearchState>(
               builder: (context, state) {
                 if (state is SearchLoading) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (state is SearchLoaded) {
                   return resultWidget(state.searchModel);
                 } else if (state is SearchError) {
-                  return Center(
+                  return const Center(
                       child: Text(
                     'Sorry no result found',
                     style:
@@ -40,9 +42,9 @@ class _MyHomePage extends State<MyHomePage> {
                   return Container(
                     child: Column(
                       children: <Widget>[
-                        Text("No Internet Connection"),
-                        RaisedButton(
-                          child: Text("Load History",
+                        const Text("No Internet Connection"),
+                        ElevatedButton(
+                          child: const Text("Load History",
                               style: TextStyle(color: Colors.black)),
                           onPressed: () {
                             BlocProvider.of<SearchBloc>(context)
@@ -74,7 +76,7 @@ class _MyHomePage extends State<MyHomePage> {
                 padding: const EdgeInsets.all(4.0),
                 child: Text('${index + 1}.',
                     style:
-                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+                        const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 child: InkWell(
@@ -89,7 +91,7 @@ class _MyHomePage extends State<MyHomePage> {
                               padding: const EdgeInsets.all(4.0),
                               child: Text(
                                 searchModel.query.pages[index].title,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 15.0,
                                     fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
@@ -98,7 +100,7 @@ class _MyHomePage extends State<MyHomePage> {
                             Text(
                               searchModel
                                   .query.pages[index].terms.description.first,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 13.0,
                                   fontWeight: FontWeight.normal),
                               textAlign: TextAlign.center,
@@ -116,12 +118,12 @@ class _MyHomePage extends State<MyHomePage> {
               ),
               Padding(
                   padding: const EdgeInsets.all(4.0),
-                  child: Container(
+                  child: SizedBox(
                     height: 50.0,
                     child: (searchModel.query.pages[index].thumbnail != null)
                         ? Image.network(
-                            searchModel.query.pages[index].thumbnail.source)
-                        : Icon(
+                            searchModel.query.pages[index].thumbnail!.source)
+                        : const Icon(
                             Icons.image,
                             size: 40.0,
                           ),
@@ -145,9 +147,9 @@ class _MyHomePage extends State<MyHomePage> {
   }
 
   showWikiSnackbar(BuildContext context) {
-    Scaffold.of(context).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text("No Internet Connection..!"),
+        content: const Text("No Internet Connection..!"),
         backgroundColor: Colors.red[500],
       ),
     );
@@ -157,7 +159,7 @@ class _MyHomePage extends State<MyHomePage> {
     return Container(
       margin: const EdgeInsets.all(8.0),
       child: TextField(
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Please enter search text here',
           ),

@@ -6,9 +6,9 @@ String emptyToJson(SearchModel data) => json.encode(data.toJson());
 
 class SearchModel {
   SearchModel({
-    this.batchcomplete,
-    this.purpleContinue,
-    this.query,
+    required this.batchcomplete,
+    required this.purpleContinue,
+    required this.query,
   });
 
   bool batchcomplete;
@@ -30,8 +30,8 @@ class SearchModel {
 
 class Continue {
   Continue({
-    this.gpsoffset,
-    this.continueContinue,
+    required this.gpsoffset,
+    required this.continueContinue,
   });
 
   int gpsoffset;
@@ -50,7 +50,7 @@ class Continue {
 
 class Query {
   Query({
-    this.pages,
+    required this.pages,
   });
 
   List<Page> pages;
@@ -65,21 +65,21 @@ class Query {
 }
 
 class Page {
-  Page({
-    this.pageid,
-    this.ns,
-    this.title,
-    this.index,
-    this.thumbnail,
-    this.terms,
-  });
-
   int pageid;
   int ns;
   String title;
   int index;
-  Thumbnail thumbnail;
+  Thumbnail? thumbnail;
   Terms terms;
+
+  Page({
+    required this.pageid,
+    required this.ns,
+    required this.title,
+    required this.index,
+    this.thumbnail,
+    required this.terms,
+  });
 
   factory Page.fromJson(Map<String, dynamic> json) => Page(
     pageid: json["pageid"],
@@ -95,14 +95,14 @@ class Page {
     "ns": ns,
     "title": title,
     "index": index,
-    "thumbnail": thumbnail == null ? null : thumbnail.toJson(),
+    "thumbnail": thumbnail?.toJson(),
     "terms": terms.toJson(),
   };
 }
 
 class Terms {
   Terms({
-    this.description,
+    required this.description,
   });
 
   List<String> description;
@@ -117,15 +117,15 @@ class Terms {
 }
 
 class Thumbnail {
-  Thumbnail({
-    this.source,
-    this.width,
-    this.height,
-  });
-
   String source;
   int width;
   int height;
+
+  Thumbnail({
+    required this.source,
+    required this.width,
+    required this.height,
+  });
 
   factory Thumbnail.fromJson(Map<String, dynamic> json) => Thumbnail(
     source: json["source"],

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:wiki_demo/network/searchApiClient.dart';
@@ -6,15 +5,15 @@ import 'package:wiki_demo/network/searchApiClient.dart';
 class SearchDetailPage extends StatefulWidget {
   final pageID;
 
-  SearchDetailPage(this.pageID);
+  const SearchDetailPage(this.pageID, {super.key});
 
   @override
-  createState() => _SearchDetailPage(this.pageID);
+  createState() => _SearchDetailPage(pageID);
 }
 
 class _SearchDetailPage extends State<SearchDetailPage> {
   var pageId;
-  num _stackToView = 1;
+  int _stackToView = 1;
   String url = "";
   double progress = 0;
 
@@ -24,22 +23,22 @@ class _SearchDetailPage extends State<SearchDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Wiki Web"),
+        title: const Text("Wiki Web"),
       ),
       body: IndexedStack(
         index: _stackToView,
         alignment: Alignment.center,
         children: [
-          WebView(
-            initialUrl: SearchApiClient.wikiWebURL + pageId.toString(),
-            javascriptMode: JavascriptMode.unrestricted,
-            onPageFinished: (String url) {
-              setState(() {
-                _stackToView = 0;
-              });
-            },
-          ),
-          Container(child: Center(child: ProgressIndicatorWidget())),
+          // WebView(
+          //   initialUrl: SearchApiClient.wikiWebURL + pageId.toString(),
+          //   javascriptMode: JavascriptMode.unrestricted,
+          //   onPageFinished: (String url) {
+          //     setState(() {
+          //       _stackToView = 0;
+          //     });
+          //   },
+          // ),
+          Container(child: const Center(child: ProgressIndicatorWidget())),
         ],
       ),
     );
@@ -47,9 +46,11 @@ class _SearchDetailPage extends State<SearchDetailPage> {
 }
 
 class ProgressIndicatorWidget extends StatelessWidget {
+  const ProgressIndicatorWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

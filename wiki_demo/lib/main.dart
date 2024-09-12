@@ -8,16 +8,14 @@ import 'network/searchApiClient.dart';
 void main() {
   SearchApiClient searchApiClient = SearchApiClient(client: Client());
   runApp(MyApp(
-    searchApiClient: searchApiClient,
+    searchApiClient: searchApiClient
   ));
 }
 
 class MyApp extends StatelessWidget {
   final SearchApiClient searchApiClient;
 
-  const MyApp({Key key, @required this.searchApiClient})
-      : assert(searchApiClient != null),
-        super(key: key);
+  const MyApp({super.key, required this.searchApiClient});
 
   @override
   Widget build(BuildContext context) {

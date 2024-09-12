@@ -13,7 +13,7 @@ part 'search_state.dart';
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final SearchApiClient searchApiClient;
 
-  SearchBloc({@required this.searchApiClient})
+  SearchBloc({required this.searchApiClient})
       : assert(searchApiClient != null),
         super(SearchInitial());
 

@@ -7,7 +7,7 @@ abstract class SearchEvent extends Equatable {
 class SearchRequest extends SearchEvent {
   final String query;
 
-  const SearchRequest({@required this.query}) : assert(query != null);
+  const SearchRequest({required this.query});
 
   @override
   List<Object> get props => [query];
