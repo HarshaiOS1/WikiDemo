@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,8 @@ class SearchApiClient {
   }) : assert(client != null);
 
   Future<SearchModel> getSearchResult(String query) async {
-
-    final searchUrl = '$baseUrl&gpssearch=$query';
-    final searchResponse = await client.get(searchUrl as Uri);
+    final searchUrl = Uri.parse('$baseUrl&gpssearch=$query');
+    final searchResponse = await client.get(searchUrl);
     if (searchResponse.statusCode != 200) {
       throw Exception("Error calling search API");
     }
@@ -46,8 +46,7 @@ class SearchApiClient {
 class WikiConnectivity {
   Future<bool> hasConnectivity() async {
     var check = await Connectivity().checkConnectivity();
-    if (check == ConnectivityResult.mobile ||
-        check == ConnectivityResult.wifi) {
+    if (check.first == ConnectivityResult.mobile || check.first == ConnectivityResult.wifi) {
       return true;
     } else {
       return false;

@@ -75,8 +75,8 @@ class _MyHomePage extends State<MyHomePage> {
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Text('${index + 1}.',
-                    style:
-                        const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+                    style: const TextStyle(
+                        fontSize: 16.0, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 child: InkWell(
