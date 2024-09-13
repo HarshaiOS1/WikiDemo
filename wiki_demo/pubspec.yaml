@@ -33,7 +33,7 @@ dependencies:
   equatable:
   webview_flutter:
   connectivity_plus:
-  localstorage:
+  localstorage: ^4.0.0
   path_provider:
 
 dev_dependencies:
