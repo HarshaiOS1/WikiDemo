@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
 import 'package:wiki_demo/models/searchModel.dart';
@@ -15,7 +13,7 @@ class SearchApiClient {
 
   SearchApiClient({
     required this.client,
-  }) : assert(client != null);
+  });
 
   Future<SearchModel> getSearchResult(String query) async {
     final searchUrl = Uri.parse('$baseUrl&gpssearch=$query');
